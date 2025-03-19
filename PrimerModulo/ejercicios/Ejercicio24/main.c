@@ -16,6 +16,9 @@ void llenarMatriz(int [][SYZE],int,int);
 void mostrarMatriz(int [][SYZE],int,int);
 void buscarPosX(int [][SYZE],int,int,int);
 void mostrarPromedioColumna(int [][SYZE],int,int);
+void superanPromedio(int [][SYZE],int,int);
+float calcularPromedio(int [][SYZE],int,int);
+int tieneCero(int [][SYZE],int,int);
 
 int main() {
     int mat[SYZE][SYZE],n,m,x;
@@ -28,19 +31,64 @@ int main() {
     //scanf("%d",&x);
     //buscarPosX(mat,n,m,x);
     //b)
-    mostrarPromedioColumna(mat,n,m);
+    //mostrarPromedioColumna(mat,n,m);
+    //c)
+    superanPromedio(mat,n,m);
+
     return 0;
+}
+
+
+int tieneCero(int mat[][SYZE],int fila,int cantCol){
+     int j=0;
+     while (j<cantCol && mat[fila][j]!=0) {
+        j++;
+     }
+
+     return j<cantCol ? 1 : 0;
+}
+
+
+float calcularPromedio(int mat[][SYZE],int n,int m) { // declarar suma como float para retornar un float??
+    float suma=0;
+
+    for(int i = 0; i< n; i++) {
+        for(int j = 0; j< m; j++) {
+          suma+=mat[i][j];
+        }
+    }
+
+    return suma/(n*m);
+}
+
+
+void superanPromedio(int mat[][SYZE],int n,int m) {
+    float prom;
+    int cantElem0;
+    prom=calcularPromedio(mat,n,m);
+
+    for( int i=0; i<n; i++) {
+        cantElem0=0;
+        if(tieneCero(mat,i,m)) {
+            for(int j=0; j<m; j++) {
+                if(mat[i][j]>prom) {
+                    cantElem0++;
+                }
+            }
+            printf("Cantidad de numeros de la fila %d que superan el promedio es: %d",i,cantElem0);
+        }
+    }
 }
 
 
 void mostrarPromedioColumna(int mat[][SYZE],int n,int m) { // FLOAT SUMA??
     float suma;
-    for (int j=0;j<m;j++) {
+    for (int j=0; j<m; j++) {
         suma=0;
         for (int i=0; i<n; i++) {
             suma+=mat[i][j];
         }
-      printf("El promedio de la columna %d es %.2f\n",j,suma/n);
+        printf("El promedio de la columna %d es %.2f\n",j,suma/n);
     }
 }
 void buscarPosX(int mat[][SYZE],int n,int m,int x) { // PREGUNTAR
