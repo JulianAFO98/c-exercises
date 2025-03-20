@@ -10,7 +10,7 @@ promedio de la matriz
 
 #include <stdio.h>
 #include <stdlib.h>
-#define SYZE 256
+#define SYZE 3
 
 void llenarMatriz(int [][SYZE],int,int);
 void mostrarMatriz(int [][SYZE],int,int);
@@ -30,22 +30,23 @@ int main() {
     //printf("Ingrese X\n");
     //scanf("%d",&x);
     //buscarPosX(mat,n,m,x);
+    printf("%p %d %p %d",&mat[0][5],mat[0][5],&mat[1][2],mat[1][2]); // una locura
     //b)
     //mostrarPromedioColumna(mat,n,m);
     //c)
-    superanPromedio(mat,n,m);
+    //superanPromedio(mat,n,m);
 
     return 0;
 }
 
 
-int tieneCero(int mat[][SYZE],int fila,int cantCol){
-     int j=0;
-     while (j<cantCol && mat[fila][j]!=0) {
+int tieneCero(int mat[][SYZE],int fila,int cantCol) {
+    int j=0;
+    while (j<cantCol && mat[fila][j]!=0) {
         j++;
-     }
+    }
 
-     return j<cantCol ? 1 : 0;
+    return j<cantCol ? 1 : 0;
 }
 
 
@@ -54,7 +55,7 @@ float calcularPromedio(int mat[][SYZE],int n,int m) { // declarar suma como floa
 
     for(int i = 0; i< n; i++) {
         for(int j = 0; j< m; j++) {
-          suma+=mat[i][j];
+            suma+=mat[i][j];
         }
     }
 
@@ -91,16 +92,41 @@ void mostrarPromedioColumna(int mat[][SYZE],int n,int m) { // FLOAT SUMA??
         printf("El promedio de la columna %d es %.2f\n",j,suma/n);
     }
 }
-void buscarPosX(int mat[][SYZE],int n,int m,int x) { // PREGUNTAR
-    int i=0,j=0; // PREGUNTAR SOBRE LOS INTS
-    while(i<n && mat[i][j]!=x) {
+void buscarPosX(int mat[][SYZE],int n,int m,int x) {  // Probando con SIZE=3 N=3 M=3 // matriz = {{1,2,3},{4,5,6},{7,8,9}} => buscamos 7
+    int i=0,j=0;
+    /*CONCLUSION:LEER ESTE COMENTARIO CUANDO SE VEA TODO LO DE ABAJO, EN LA CONDICION DEL PRIMER BUCLE
+     i<n es igual a 2<3 ,todo bien con eso pero mat[i,j]!=x no esta de acuerdo,ya que compara mat[1,3]!=7 pero
+     como c gestiona los vectores mat[1,3] es igual a [2,0] por lo que en la tercera iteracion resulta i<n TRUE pero mat[i][j] FALSE
+    saliendo del bucle*/
+
+    while(i<n && mat[i][j]!=x) { //N Y M VALEN 3 PERO LA MATRIZ TIENE SIZE = 3 ENTONCES LA MATRIZ QUEDA DE ESTA FORMA(POSICIONES NO VALORES)
+        /*[
+        [0:0,0:1,0:2]
+        [1:0,1:1,1:2]
+        [2:0,1:1,2:2]
+        ]*/
+
+        //Primera Iteracion 0<3 TRUE Mat!=x TRUE
+        //Segunda Iteracion 1<3 TRUE Mat!=x TRUE
+        //Tercera Iteracion 2<3 TRUE Mat!=x TRUE
         while(j<m && mat[i][j]!=x) {
             j++;
+            // Primera Iteracion 0<3 TRUE mat!=x TRUE //j++ =>1
+            // Primera Iteracion 1<3 TRUE mat!=x TRUE //j++ =>2
+            // Primera Iteracion 2<3 TRUE mat!=x TRUE //j++ =>3
+            // Primera Iteracion 3<3 FALSE mat!=x TRUE => ROMPE CICLO CON i=0 y j=3
+
+            // Segunda Iteracion 0<3 TRUE Mat!=x TRUE //j++ => 1
+            // Segunda Iteracion 1<3 TRUE Mat!=x TRUE //j++ => 2
+            // Segunda Iteracion 2<3 TRUE Mat!=x TRUE //j++ => 3
+            // Segunda Iteracion 3<3 FALSE Mat!=x TRUE => ROMPE CICLO CON i=1 y j=3 PERO QUIEN VIVE EN [1][3]??? Mirar ARRIBA
+
         }
+
+        // con i = 2 y j = 0 que pasa?
         if(mat[i][j]!=x) {
             j=0;
             i++;
-
         }
 
     }
