@@ -108,7 +108,7 @@ void buscarPosX(int mat[][SYZE],int n,int m,int x) {  // Probando con SIZE=3 N=3
 
         //Primera Iteracion 0<3 TRUE Mat!=x TRUE
         //Segunda Iteracion 1<3 TRUE Mat!=x TRUE
-        //Tercera Iteracion 2<3 TRUE Mat!=x TRUE
+        //TERCERA ITERACION 2<3 NO ENTRA
         while(j<m && mat[i][j]!=x) {
             j++;
             // Primera Iteracion 0<3 TRUE mat!=x TRUE //j++ =>1
@@ -123,7 +123,6 @@ void buscarPosX(int mat[][SYZE],int n,int m,int x) {  // Probando con SIZE=3 N=3
 
         }
 
-        // con i = 2 y j = 0 que pasa?
         if(mat[i][j]!=x) {
             j=0;
             i++;
