@@ -18,81 +18,87 @@ typedef struct {
     float tempMin;
 }  regClima;
 
-void llenarBinario(FILE **);
-void corteDeControl(FILE **);
+void llenarBinario();
+void corteDeControl();
 
 int main() {
-    FILE * arch;
-    llenarBinario(&arch);
-    corteDeControl(&arch);
+
+    llenarBinario();
+    corteDeControl();
     return 0;
 }
 
 
-void corteDeControl(FILE **arch){
+void corteDeControl(){
     regClima registro;
     char ciudadActual[21],ciudadMinima[21];
     float minima=200;
     unsigned short int diaMinima;
 
 
-    *arch = fopen("datos.dat","rb");
+    FILE * arch = fopen("datos.dat","rb");
 
-    if(*arch == NULL) {
+    if(arch== NULL) {
         printf("No se pudo abrir el archivo");
-        return;
-    }
 
-    fread(&registro,sizeof(regClima),1,*arch);
-    while(!feof(*arch)) {
+    }else {
 
-     strcpy(ciudadActual,registro.ciudad);
-     printf("Temperaturas de la ciudad %s\n",ciudadActual);
+        fread(&registro,sizeof(regClima),1,arch);
+        while(!feof(arch)) {
 
-     while(!feof(*arch) && strcmp(ciudadActual,registro.ciudad)==0) {
-        if(registro.tempMin<minima) {
-            minima=registro.tempMin;
-            diaMinima=registro.dia;
-            strcpy(ciudadMinima,registro.ciudad);
+            strcpy(ciudadActual,registro.ciudad);
+            printf("Temperaturas de la ciudad %s\n",ciudadActual);
+
+            while(!feof(arch) && strcmp(ciudadActual,registro.ciudad)==0) {
+                if(registro.tempMin<minima) {
+                    minima=registro.tempMin;
+                    diaMinima=registro.dia;
+                    strcpy(ciudadMinima,registro.ciudad);
+                }
+                printf("Dia %d Max:%.2f Min:%.2f\n",registro.dia,registro.tempMax,registro.tempMin);
+                fread(&registro,sizeof(regClima),1,arch);
+            }
         }
-        printf("Dia %d Max:%.2f Min:%.2f\n",registro.dia,registro.tempMax,registro.tempMin);
-        fread(&registro,sizeof(regClima),1,*arch);
-     }
+
+
+        printf("La ciudad mas fria fue: %s en el dia %d",ciudadMinima,diaMinima);
+
+
+        fclose(arch);
     }
 
 
-   printf("La ciudad mas fria fue: %s en el dia %d",ciudadMinima,diaMinima);
 
-
-    fclose(*arch);
 
 }
 
 
-void llenarBinario(FILE ** arch) {
+void llenarBinario() {
     regClima registro;
 
-    *arch = fopen("datos.dat","wb");
+    FILE * arch = fopen("datos.dat","wb");
 
-    if(*arch == NULL) {
+    if(arch == NULL) {
         printf("No se pudo abrir el archivo");
-        return;
+
+    }else {
+
+        for (int i=0; i<CANTCIUDADES; i++) {
+            printf("Ingrese nombre ciudad\n");
+            gets(registro.ciudad);
+            printf("Ingrese dia\n");
+            scanf("%d",&registro.dia);
+            printf("Ingrese temp max\n");
+            scanf("%f",&registro.tempMax);
+            printf("Ingrese  temp minima\n");
+            scanf("%f",&registro.tempMin);
+            getchar();
+            fwrite(&registro,sizeof(regClima),1,arch);
+        }
+        fclose(arch);
     }
 
-    for (int i=0; i<CANTCIUDADES; i++) {
-        printf("Ingrese nombre ciudad\n");
-        gets(registro.ciudad);
-        printf("Ingrese dia\n");
-        scanf("%d",&registro.dia);
-        printf("Ingrese temp max\n");
-        scanf("%f",&registro.tempMax);
-        printf("Ingrese  temp minima\n");
-        scanf("%f",&registro.tempMin);
-        getchar();
-        fwrite(&registro,sizeof(regClima),1,*arch);
-    }
 
 
 
-    fclose(*arch);
 }

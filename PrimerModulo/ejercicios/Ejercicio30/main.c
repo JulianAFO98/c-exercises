@@ -11,77 +11,75 @@ cantidad de registros generados en el archivo binario
 #include <stdio.h>
 #include <stdlib.h>
 typedef struct {
-   char patente[7];
-   char hora[6];
-   char fecha[11];
-   int velReg;
-   int velPermitida;
+    char patente[7];
+    char hora[6];
+    char fecha[11];
+    int velReg;
+    int velPermitida;
 }  Treg;
-void generarBinario(FILE **);
-void mostrarBinario(FILE **);
+void generarBinario();
+void mostrarBinario();
 
-int main()
-{
-
-    FILE * archBin;
-
-    generarBinario(&archBin);
-    mostrarBinario(&archBin);
-
-
-    fclose(archBin);
+int main() {
+    generarBinario();
+    mostrarBinario();
     return 0;
 }
 
 
 
-void mostrarBinario(FILE **pArchBin) {
+void mostrarBinario() {
 
-  Treg registro;
+    Treg registro;
 
-  *pArchBin = fopen("datosBinario.dat","r");
+    FILE * archBin = fopen("datosBinario.dat","r");
 
-   if(*pArchBin == NULL) {
+    if(archBin == NULL) {
         printf("Error al abrir algun archivo.\n");
         return;
-   }
+    } else {
 
-  fread(&registro,sizeof(Treg),1,*pArchBin);
-  while(!feof(*pArchBin)) {
-      printf("%s %s %s %d %d\n",registro.patente,registro.fecha,registro.hora,registro.velPermitida,registro.velReg);
-      fread(&registro,sizeof(Treg),1,*pArchBin);
-  }
+        fread(&registro,sizeof(Treg),1,archBin);
+        while(!feof(archBin)) {
+            printf("%s %s %s %d %d\n",registro.patente,registro.fecha,registro.hora,registro.velPermitida,registro.velReg);
+            fread(&registro,sizeof(Treg),1,archBin);
+        }
 
 
-  fclose(*pArchBin);
+        fclose(archBin);
+
+    }
+
 }
 
 
-void generarBinario(FILE **pArchBin) { // PREGUNTAR
+void generarBinario() { // PREGUNTAR
 
-  char aux;
-  Treg registro;
-  unsigned int totalMed=0,infracciones=0;
+    char aux;
+    Treg registro;
+    unsigned int totalMed=0,infracciones=0;
 
-  FILE * archRadar = fopen("datosRadar.txt","r");
-  *pArchBin = fopen("datosBinario.dat","wb");
+    FILE * archRadar = fopen("datosRadar.txt","r");
+    FILE * archBin = fopen("datosBinario.dat","wb");
 
-   if(archRadar == NULL || *pArchBin == NULL) {
+    if(archRadar == NULL || archBin == NULL) {
         printf("Error al abrir algun archivo.\n");
-        return;
-   }
+    } else {
+        while(fscanf(archRadar,"%s%d%d%c%s%c%s",registro.patente,&registro.velReg,&registro.velPermitida,&aux,registro.fecha,&aux,registro.hora)== 7) {
+            if((registro.velPermitida-registro.velReg)>registro.velPermitida*0.2) {
+                fwrite(&registro,sizeof(Treg),1,archBin);
+                infracciones+=1;
 
-  while(fscanf(archRadar,"%s%d%d%c%s%c%s",registro.patente,&registro.velReg,&registro.velPermitida,&aux,registro.fecha,&aux,registro.hora)== 7) {
-    if((registro.velPermitida-registro.velReg)>registro.velPermitida*0.2) {
-         fwrite(&registro,sizeof(Treg),1,*pArchBin);
-         infracciones+=1;
+            }
+            totalMed+=1;
+        }
+        printf("Total mediciones: %d\n",totalMed);
+        printf("Infracciones: %d\n",infracciones);
+
+        fclose(archRadar);
+        fclose(archBin);
+
 
     }
-    totalMed+=1;
-  }
-   printf("Total mediciones: %d\n",totalMed);
-   printf("Infracciones: %d\n",infracciones);
 
-  fclose(archRadar);
-  fclose(*pArchBin);
 }

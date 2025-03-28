@@ -15,72 +15,73 @@ typedef struct {
     float puntaje;
 } TipoTenista;
 
-void llenarBinario(FILE **);
-void mostrarDatosJugador(FILE **,unsigned int);
+void llenarBinario();
+void mostrarDatosJugador(unsigned int);
 
 int main() {
-    FILE * arch;
+
     unsigned int n;
 
-    llenarBinario(&arch);
+    llenarBinario();
     printf("Ingrese una posicion a buscar\n");
     scanf("%d",&n);
-    mostrarDatosJugador(&arch,n);
+    mostrarDatosJugador(n);
 
     return 0;
 }
 
 
-void mostrarDatosJugador(FILE **pArch,unsigned int pos) {
+void mostrarDatosJugador(unsigned int pos) {
 
     TipoTenista tenista;
 
-    *pArch = fopen("datos.dat","r");
+    FILE * arch = fopen("datos.dat","r");
 
-    if(*pArch == NULL) {
+    if(arch  == NULL) {
         printf("No se pudo abrir el archivo");
-        return;
+    } else {
+        fseek(arch,pos*sizeof(TipoTenista),SEEK_CUR); // Preguntar
+        fread(&tenista,sizeof(TipoTenista),1,arch);
+
+        printf("nombre tenista %s\n",tenista.nombre);
+        printf("apellido tenista %s\n",tenista.apellido);
+        printf("nacionalidad tenista %s\n",tenista.nacionalidad);
+        printf("puntaje tenista %f\n",tenista.puntaje);
+
     }
 
-    fseek(*pArch,pos*sizeof(TipoTenista),SEEK_CUR); // Preguntar
-    fread(&tenista,sizeof(TipoTenista),1,*pArch);
-
-    printf("nombre tenista %s\n",tenista.nombre);
-    printf("apellido tenista %s\n",tenista.apellido);
-    printf("nacionalidad tenista %s\n",tenista.nacionalidad);
-    printf("puntaje tenista %f\n",tenista.puntaje);
-
+   fclose(arch);
 
 }
 
 
 
-void llenarBinario(FILE **pArch) {
+void llenarBinario() {
 
     TipoTenista tenista;
 
 
-    *pArch = fopen("datos.dat","wb");
+    FILE * arch = fopen("datos.dat","wb");
 
-    if(*pArch == NULL) {
+    if(arch  == NULL) {
         printf("No se pudo abrir el archivo");
         return;
+    }else {
+        for (int i=0; i<CANTTENISTAS; i++) {
+            printf("Ingrese nombre tenista\n");
+            gets(tenista.nombre);
+            printf("Ingrese apellido tenista\n");
+            gets(tenista.apellido);
+            printf("Ingrese nacionalidad tenista\n");
+            gets(tenista.nacionalidad);
+            printf("Ingrese puntaje tenista\n");
+            scanf(" %f",&tenista.puntaje);
+            getchar();
+            fwrite(&tenista,sizeof(TipoTenista),1,arch);
+        }
+        fclose(arch);
     }
 
-    for (int i=0; i<CANTTENISTAS; i++) {
-        printf("Ingrese nombre tenista\n");
-        gets(tenista.nombre);
-        printf("Ingrese apellido tenista\n");
-        gets(tenista.apellido);
-        printf("Ingrese nacionalidad tenista\n");
-        gets(tenista.nacionalidad);
-        printf("Ingrese puntaje tenista\n");
-        scanf(" %f",&tenista.puntaje);
-        getchar();
-        fwrite(&tenista,sizeof(TipoTenista),1,*pArch);
-    }
 
-
-    fclose(*pArch);
 
 }

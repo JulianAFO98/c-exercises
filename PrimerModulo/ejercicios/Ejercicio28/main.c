@@ -16,18 +16,16 @@ int main() {
 
     if(arch == NULL) {
         printf("Error al abrir el archivo");
-        return 1;
+
+    }else {
+        while(fscanf(arch,"%d",&num) == 1) {
+            sum+=num;
+        };
+        printf("%d",sum);
+        fclose(arch);
     }
 
 
-    while(fscanf(arch,"%d",&num) == 1) {
-        sum+=num;
-    };
-
-    printf("%d",sum);
-
-
-    fclose(arch);
 
     return 0;
 }

@@ -6,43 +6,45 @@ temperatura promedio, máxima y mínima.*/
 #include <stdio.h>
 #include <stdlib.h>
 
-void llenarArchivo(FILE **);
-void leerArchivo(FILE **);
+void llenarArchivo();
+void leerArchivo();
 
 int main()
 {
-    FILE * arch;
 
-    llenarArchivo(&arch);
-    leerArchivo(&arch);
+    llenarArchivo();
+    leerArchivo();
     return 0;
 }
 
 
-void leerArchivo(FILE **pArch) {
-
+void leerArchivo() {
     float temp,suma=0,max=-300,min=300,n=0;
 
-    *pArch = fopen("datos.dat","r");
+    FILE * arch=fopen("datos.dat","r");
 
-    fread(&temp,sizeof(float),1,*pArch);
-    while(!feof(*pArch)) {
-        suma+=temp;
-        n+=1;
-        if(temp>max) {
-            max=temp;
+    if(arch == NULL) {
+        printf("Error al intentar leer el archivo");
+    }else {
+        fread(&temp,sizeof(float),1,arch);
+        while(!feof(arch)) {
+            suma+=temp;
+            n+=1;
+            if(temp>max) {
+                max=temp;
+            }
+            if(temp<min) {
+                min=temp;
+            }
+            fread(&temp,sizeof(float),1,arch);
         }
-        if(temp<min) {
-            min=temp;
-        }
-        fread(&temp,sizeof(float),1,*pArch);
+
+        printf("Temperatura maxima %.2f\n",max);
+        printf("Temperatura minima %.2f\n",min);
+        printf("Temperatura promedio %.2f\n",suma/n);
+
+        fclose(arch);
     }
-
-    printf("Temperatura maxima %.2f\n",max);
-    printf("Temperatura minima %.2f\n",min);
-    printf("Temperatura promedio %.2f\n",suma/n);
-
-    fclose(*pArch);
 
 }
 
@@ -50,20 +52,24 @@ void leerArchivo(FILE **pArch) {
 
 
 
-void llenarArchivo(FILE **pArch) {
+void llenarArchivo() {
     unsigned int n;
     float medicion;
 
-    *pArch = fopen("datos.dat","wb");
+    FILE * arch = fopen("datos.dat","wb");
 
-    printf("Ingrese cuantas mediciones desea generar\n");
-    scanf("%d",&n);
-    for (int i = 0;i<n;i++) {
-        printf("Ingrese medicion numero %d\n",i+1);
-        scanf("%f",&medicion);
-        fwrite(&medicion,sizeof(float),1,*pArch);
+    if(arch == NULL) {
+        printf("Error al crear el archivo");
+    }else {
+        printf("Ingrese cuantas mediciones desea generar\n");
+        scanf("%d",&n);
+        for (int i = 0; i<n; i++) {
+            printf("Ingrese medicion numero %d\n",i+1);
+            scanf("%f",&medicion);
+            fwrite(&medicion,sizeof(float),1,arch);
+        }
+
+        fclose(arch);
     }
-
-    fclose(*pArch);
 
 }
