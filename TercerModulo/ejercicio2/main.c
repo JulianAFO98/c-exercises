@@ -16,6 +16,8 @@ otro C manteniendo el orden pero sin pasar los elementos repetidos.  */
 
 #include <stdlib.h>
 #include <stdio.h>
+#define SIZE 3
+#define SIZE2 256
 
 int sumaV(int[], int);
 void mostrarV(int[], int);
@@ -23,6 +25,10 @@ void mostrarVInverso(int[], int);
 int buscarPosX(float[], int, float);
 int busquedaBinariaRec(float[], int, int, float);
 void fusionarVectores(int[], int[], int[], int, int, int, int, int *);
+int buscarMinMat(int[SIZE][SIZE], int, int, int);
+void llenarMatriz(int[SIZE2][SIZE2], int, int);
+void generarVector(int[SIZE2][SIZE2], int, int, int, int[SIZE2], int *);
+void mostrarVector(int[], int);
 
 int main()
 {
@@ -62,11 +68,26 @@ int main()
     }
     */
 
-    // c) En Standby
+    // c)
+    /*
+    int mat[SIZE][SIZE] = {{3, 2, -8}, {2, 4, -15}, {12, 3, -2}};
+    printf("El min de la matriz es :%d", buscarMinMat(mat, 2, 2, 2));
+    */
 
-    // d) En Standby
+    // d)
+
+    int mat[SIZE2][SIZE2];
+    int v[SIZE2], k = 0, n, m;
+    printf("Ingrese n\n");
+    scanf("%d", &n);
+    printf("Ingrese m\n");
+    scanf("%d", &m);
+    llenarMatriz(mat, n, m);
+    generarVector(mat, n - 1, m - 1, m - 1, v, &k);
+    mostrarVector(v, n);
 
     // e)
+    /*
     int ordenado1[] = {2, 4, 6, 7, 8, 9, 123, 200};
     int ordenado2[] = {2, 5, 6, 8, 9, 34, 155, 200, 201, 400};
     int fusionados[30], k;
@@ -76,6 +97,57 @@ int main()
     for (int i = 0; i < k; i++)
     {
         printf("%d ", fusionados[i]);
+    }
+    */
+}
+
+void mostrarVector(int v[], int n)
+{
+    for (int i = 0; i < n; i++)
+    {
+        printf("%d ", v[i]);
+    }
+}
+
+void generarVector(int mat[][SIZE2], int i, int j, int m, int v[], int *pK) // preguntar
+{
+    if (i > -1)
+    {
+        if (j == 0)
+        {
+            v[i] = mat[i][j];
+            (*pK)++;
+            generarVector(mat, i - 1, m, m, v, pK);
+        }
+        else
+            generarVector(mat, i, j - 1, m, v, pK);
+
+        if (mat[i][j] > v[i])
+            v[i] = mat[i][j];
+    }
+}
+
+void llenarMatriz(int mat[][SIZE2], int n, int m)
+{
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < m; j++)
+        {
+            printf("Ingrese el valor [%d][%d]:", i, j);
+            scanf("%d", &mat[i][j]);
+        }
+    }
+}
+
+int buscarMinMat(int mat[][SIZE], int i, int j, int m)
+{
+    int min;
+    if (i == 0 && j == 0)
+        return mat[i][j];
+    else
+    {
+        min = j == 0 ? buscarMinMat(mat, i - 1, m, m) : buscarMinMat(mat, i, j - 1, m);
+        return min < mat[i][j] ? min : mat[i][j];
     }
 }
 
