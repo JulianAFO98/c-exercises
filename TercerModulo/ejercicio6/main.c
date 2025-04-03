@@ -7,7 +7,8 @@ de sus elementos sea par. */
 #define SIZE 256
 
 void llenarMatriz(int[SIZE][SIZE], int, int);
-void cumple(int[SIZE][SIZE], int, int, int, int, int, int);
+void cumpleVoid(int[SIZE][SIZE], int, int, int, int, int, int); // Version fea
+int cumpleInt(int[SIZE][SIZE], int, int, int, int, int, int);   // Version buena o mas aceptable
 int main()
 {
     int mat[SIZE][SIZE];
@@ -17,16 +18,44 @@ int main()
     printf("Ingrese m\n");
     scanf("%d", &m);
     llenarMatriz(mat, n, m);
-    cumple(mat, 0, 0, n - 1, m - 1, anterior, actual);
+    // cumpleVoid(mat, 0, 0, n - 1, m - 1, anterior, actual);
+    printf(cumpleInt(mat, 0, 0, n - 1, m - 1, anterior, actual) ? "Cumple" : "No cumple");
 }
 
-void cumple(int mat[SIZE][SIZE], int i, int j, int n, int m, int anterior, int actual)
+int cumpleInt(int mat[SIZE][SIZE], int i, int j, int n, int m, int anterior, int actual)
 {
-
     actual += mat[i][j];
+    if (i > n) // Si me caigo es true
+    {
+        return 1;
+    }
+    else
+    {
+
+        if (j == m) // si llego al final hay 2 casos de una columna
+        {
+            if ((i == 0 && actual % 2 == 0) || (i != 0 && actual > anterior))
+            {
+                cumpleInt(mat, i + 1, 0, n, m, actual, 0);
+            }
+            else
+            {
+                return 0;
+            }
+        }
+        else
+        {
+            cumpleInt(mat, i, j + 1, n, m, anterior, actual);
+        }
+    }
+}
+
+void cumpleVoid(int mat[SIZE][SIZE], int i, int j, int n, int m, int anterior, int actual)
+{
 
     if (i <= n) // Mientras no me caiga de la matriz
     {
+        actual += mat[i][j];
         if (i == 0 && j == m) // Si estoy en la ultima columna de la primera fila y es par sigo
         {
             if (actual % 2 == 0)
@@ -34,7 +63,7 @@ void cumple(int mat[SIZE][SIZE], int i, int j, int n, int m, int anterior, int a
 
                 anterior = actual;
                 actual = 0;
-                cumple(mat, i + 1, 0, n, m, anterior, actual);
+                cumpleVoid(mat, i + 1, 0, n, m, anterior, actual);
             }
             else
             {
@@ -51,13 +80,13 @@ void cumple(int mat[SIZE][SIZE], int i, int j, int n, int m, int anterior, int a
             {
                 anterior = actual;
                 actual = 0;
-                cumple(mat, i + 1, 0, n, m, anterior, actual);
+                cumpleVoid(mat, i + 1, 0, n, m, anterior, actual);
             }
             else
             {
                 if (j < m) // En camino al j==m
                 {
-                    cumple(mat, i, j + 1, n, m, anterior, actual);
+                    cumpleVoid(mat, i, j + 1, n, m, anterior, actual);
                 }
                 else // Por descarte si no cumple ninguna anterior, no cumple condicion final
                 {
