@@ -24,19 +24,19 @@ int main()
 
 int cumpleInt(int mat[SIZE][SIZE], int i, int j, int n, int m, int anterior, int actual)
 {
-    actual += mat[i][j];
+
     if (i > n) // Si me caigo es true
     {
         return 1;
     }
     else
     {
-
+       actual += mat[i][j];
         if (j == m) // si llego al final hay 2 casos de una columna
         {
             if ((i == 0 && actual % 2 == 0) || (i != 0 && actual > anterior))
             {
-                cumpleInt(mat, i + 1, 0, n, m, actual, 0);
+               return cumpleInt(mat, i + 1, 0, n, m, actual, 0);
             }
             else
             {
@@ -45,7 +45,7 @@ int cumpleInt(int mat[SIZE][SIZE], int i, int j, int n, int m, int anterior, int
         }
         else
         {
-            cumpleInt(mat, i, j + 1, n, m, anterior, actual);
+           return  cumpleInt(mat, i, j + 1, n, m, anterior, actual);
         }
     }
 }
