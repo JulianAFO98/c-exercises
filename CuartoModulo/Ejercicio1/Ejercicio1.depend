@@ -1,0 +1,12 @@
+# depslib dependency file v1.0
+1744049572 source:c:\users\julia\onedrive\escritorio\programacion\c\cuartomodulo\ejercicio1\main.c
+	<stdio.h>
+	<stdlib.h>
+	"fracciones.h"
+
+1744051583 c:\users\julia\onedrive\escritorio\programacion\c\cuartomodulo\ejercicio1\fracciones.h
+
+1744073820 source:c:\users\julia\onedrive\escritorio\programacion\c\cuartomodulo\ejercicio1\fracciones.c
+	"fracciones.h"
+	<stdio.h>
+

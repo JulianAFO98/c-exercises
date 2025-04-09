@@ -1,0 +1,12 @@
+# depslib dependency file v1.0
+1744221271 source:c:\users\julia\onedrive\escritorio\programacion\c\cuartomodulo\ejercicio2\main.c
+	<stdio.h>
+	<stdlib.h>
+	"string.h"
+
+1744219324 c:\users\julia\onedrive\escritorio\programacion\c\cuartomodulo\ejercicio2\string.h
+
+1744221250 source:c:\users\julia\onedrive\escritorio\programacion\c\cuartomodulo\ejercicio2\string.c
+	"string.h"
+	<stdio.h>
+
