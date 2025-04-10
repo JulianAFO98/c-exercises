@@ -1,0 +1,12 @@
+# depslib dependency file v1.0
+1744246926 source:c:\users\julia\onedrive\escritorio\programacion\c\cuartomodulo\ejercicio3\main.c
+	<stdio.h>
+	<stdlib.h>
+	"agenda.h"
+
+1744246436 c:\users\julia\onedrive\escritorio\programacion\c\cuartomodulo\ejercicio3\agenda.h
+
+1744232135 source:c:\users\julia\onedrive\escritorio\programacion\c\cuartomodulo\ejercicio3\agenda.c
+	"agenda.h"
+	<string.h>
+

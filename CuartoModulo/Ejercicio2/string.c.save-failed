@@ -113,9 +113,21 @@ int endsWith(String s, String sufijo) {
 }
 
 
-/*void imprimirArch(String s, FILE* arch) { ////????
-    fwrite(s, sizeof(String), 1, arch);
-}*/
+void imprimirArch(String s, FILE* arch) {
+    char car;
+    int cont=0;
+
+    while(fscanf(arch,"%c", &car) == 1) {
+        cont++;
+    }
+    s.c = (char *) malloc (cont * sizeof(char));
+
+    fseek(arch, 0, SEEK_SET);
+    while(fscanf(arch,"%c", &car) == 1) {
+        *(s.c+i) = car;
+    }
+
+}
 
 
 

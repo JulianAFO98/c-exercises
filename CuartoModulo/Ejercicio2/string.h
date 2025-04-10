@@ -1,5 +1,5 @@
 
-
+#include <stdio.h>
 
 /*typedef struct {
     char c[256];
@@ -31,6 +31,6 @@ int startsWith(String s, String prefijo);
 
 void deleteString(String s);
 
-//String imprimirArch(String s, FILE* arch);
+void imprimirArch(String s,FILE * arch);
 
 int endsWith(String s, String sufijo);

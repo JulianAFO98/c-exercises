@@ -15,9 +15,19 @@ Mejorar el operador buscar por nombre, recodificándolo como búsqueda binaria.
 
 #include <stdio.h>
 #include <stdlib.h>
+#include "agenda.h"
 
-int main()
-{
-    printf("Hello world!\n");
+int main() {
+    agendaContactos agenda = iniciarAgenda();
+    agregarContacto(&agenda);
+    agregarContacto(&agenda);
+    listarAgenda(agenda);
+
+    int pos =buscarPorNombre(agenda,"Julian");
+    if(pos!=-1) {
+        printf("Julian esta en pos %d",pos);
+    } else {
+        printf("Julian no esta");
+    }
     return 0;
 }

@@ -43,6 +43,16 @@ int main()
     imprimir(str7);
     printf(startsWith(str6,str) ? "Empieza\n": "No empieza\n");
     printf(endsWith(str6,str2) ? "Termina": "No termina");
+
+    String s=crear(" exploto");
+    FILE * arch = fopen("archivo.txt","a");
+    if(arch == NULL) {
+        printf("archivo inexistente");
+    }else {
+        imprimirArch(s,arch);
+    }
+    imprimir(s);
+
     deleteString(str);
     deleteString(str2);
     deleteString(str3);
