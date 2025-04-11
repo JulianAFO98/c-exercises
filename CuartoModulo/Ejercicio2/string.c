@@ -113,9 +113,9 @@ int endsWith(String s, String sufijo) {
 }
 
 
-/*void imprimirArch(String s, FILE* arch) { ////????
-    fwrite(s, sizeof(String), 1, arch);
-}*/
+void imprimirArch(String s, FILE* arch) {
+    //fwrite(s, sizeof(String), 1, arch);
+}
 
 
 

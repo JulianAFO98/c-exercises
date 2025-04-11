@@ -1,0 +1,23 @@
+# depslib dependency file v1.0
+1744303475 source:c:\users\julia\onedrive\escritorio\programacion\c\quientomodulo\ejercicio1\pilase.c
+	"pilasE.h"
+
+1744300912 c:\users\julia\onedrive\escritorio\programacion\c\quientomodulo\ejercicio1\pilas.h
+
+1744303470 c:\users\julia\onedrive\escritorio\programacion\c\quientomodulo\ejercicio1\pilase.h
+
+1744321317 source:c:\users\julia\onedrive\escritorio\programacion\c\quientomodulo\ejercicio1\main.c
+	"pilasD.h"
+	"colasE.h"
+	<stdio.h>
+	<stdlib.h>
+
+1744304048 c:\users\julia\onedrive\escritorio\programacion\c\quientomodulo\ejercicio1\pilasd.h
+
+1744320751 source:c:\users\julia\onedrive\escritorio\programacion\c\quientomodulo\ejercicio1\pilasd.c
+	<stdio.h>
+	<stdlib.h>
+	"pilasD.h"
+
+1744323695 c:\users\julia\onedrive\escritorio\programacion\c\quientomodulo\ejercicio1\colase.h
+
