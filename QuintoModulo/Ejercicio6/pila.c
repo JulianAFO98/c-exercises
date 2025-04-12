@@ -3,23 +3,36 @@
 
 #include "pila.h"
 
-void poneP(TP *P,TEP e){
-  TP N;
-  N = (TP) malloc(sizeof(nodo));
-  N->dato=e;
-  N->sig=*P;
-  *P=N;
+void poneP(TP* P, TEP e)
+{
+    TP N;
+    N = (TP)malloc(sizeof(nodo));
+    N->dato = e;
+    N->sig = *P;
+    *P = N;
 }
 
-void sacaP(TP *P,TEP * e);
-TEP consultaP(TP P){
-    if(P!= NULL) 
-     return P->dato;
+void sacaP(TP* P, TEP* e)
+{
+    TP aux = *P;
+    if (aux != NULL)
+    {
+        *P = aux->sig;
+        *e = aux->dato;
+        free(aux);
+    }
 }
-void iniciaP(TP* P){
+
+TEP consultaP(TP P)
+{
+    return P->dato;
+}
+
+void iniciaP(TP* P)
+{
     (*P) = NULL;
 }
-int vaciaP(TP P){
+int vaciaP(TP P)
+{
     return P == NULL;
 }
-
