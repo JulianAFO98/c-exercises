@@ -3,6 +3,7 @@
         "stdio.h": "c",
         "stdlib.h": "c",
         "cstdlib": "c",
-        "cola.h": "c"
+        "cola.h": "c",
+        "pila.h": "c"
     }
 }
