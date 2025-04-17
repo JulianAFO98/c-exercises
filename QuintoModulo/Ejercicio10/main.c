@@ -11,36 +11,79 @@ b. Agregar a la expresión la presencia y comprobación de corchetes y llaves.
 #include "cola.h"
 void verificarParentesis(cola *C);
 void limpiarCola(cola *C);
+void llenarCola(cola *C);
+
 int main(void)
 {
     cola C;
     iniciaC(&C);
+    llenarCola(&C);
     verificarParentesis(&C);
+    limpiarCola(&C);
 }
 
 void verificarParentesis(cola *C)
 {
     TEC e;
-    unsigned int contIzq = 0, contDere = 0;
+    unsigned int contParentesisIzq = 0, contParentesisDere = 0, contLlaveIzq = 0, contLlaveDere = 0, contCorcheteIzq = 0, contCorcheteDere = 0;
     while (consultaC(*C) != '.')
     {
         sacaC(C, &e);
-        if (e == '(')
-            contIzq++;
-        if (e == ')')
-            contIzq++;
+        switch (e)
+        {
+        case ')':
+            contParentesisDere++;
+            break;
+        case '(':
+            contParentesisIzq++;
+            break;
+        case '[':
+            contCorcheteIzq++;
+            break;
+        case ']':
+            contCorcheteDere++;
+            break;
+        case '{':
+            contLlaveIzq++;
+            break;
+        case '}':
+            contLlaveDere++;
+            break;
+        }
         poneC(C, e);
     }
 
-    if (contIzq == contDere)
-        printf("We good");
+    if (contParentesisIzq == contParentesisDere)
+        printf("We good parentesis\n");
     else
     {
-        if (contDere > contIzq)
-            printf("Falta parentesis Izquierdo");
+        if (contParentesisDere > contParentesisIzq)
+            printf("Falta parentesis Izquierdo\n");
         else
-            printf("Falta parentesis derecho");
+            printf("Falta parentesis derecho\n");
     }
+
+    if (contCorcheteDere == contCorcheteIzq)
+        printf("We good corchetes\n");
+    else
+    {
+        if (contCorcheteDere > contCorcheteIzq)
+            printf("Falta corchete Izquierdo\n");
+        else
+            printf("Falta corchete derecho\n");
+    }
+
+    if (contLlaveDere == contLlaveIzq)
+        printf("We good llaves\n");
+    else
+    {
+        if (contCorcheteDere > contLlaveIzq)
+            printf("Falta llave Izquierdo\n");
+        else
+            printf("Falta llave derecho\n");
+    }
+
+    sacaC(C, &e);
 }
 
 void limpiarCola(cola *C)
@@ -49,8 +92,11 @@ void limpiarCola(cola *C)
     while (!vaciaC(*C))
     {
         sacaC(C, &e);
+        printf("%c", e);
     }
+    printf("\n");
 }
+
 void llenarCola(cola *C)
 {
 
@@ -63,7 +109,7 @@ void llenarCola(cola *C)
         printf("No se pudo abrir el archivo");
     else
     {
-        while (fscanf(file, "%d %d %d", &e.legajo, &e.tiempoSegundosArribo, &e.tiempoSegundosHorno) == 3)
+        while (fscanf(file, "%c", &e) == 1)
             poneC(C, e);
         fclose(file);
     }
