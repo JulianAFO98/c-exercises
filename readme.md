@@ -4,5 +4,5 @@ En cierto momento entre el segundo modulo y tercero cambia el formato de los eje
 Modulo 1 - Aprendiendo sintaxis 🤑                                                                                                           
 Modulo 2 - Aprendiendo punteros 😎                                                                                                       
 Modulo 3 - Recursividad 🙂                                                                                                                            
-Modulo 4 - TDA(Tipos de datos abstractos) 😐
+Modulo 4 - TDA(Tipos de datos abstractos) 😐                                                                                           
 Modulo 5 - Pilas y Colas 😕

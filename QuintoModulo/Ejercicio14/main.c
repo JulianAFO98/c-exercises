@@ -76,7 +76,7 @@ void verificarPalindromo(TC *C, unsigned int n, int *result)
                 i++;
             }
             else
-            { // Sigo con el resto de la palabra
+            { // Sigo con el resto de la palabra  sacando de la pila comparando con el resto de las letras
                 sacaC(C, &elemCola);
                 sacaP(&pila, &elemPila);
                 if (elemCola.car == elemPila.c)
@@ -84,6 +84,5 @@ void verificarPalindromo(TC *C, unsigned int n, int *result)
             }
         }
     }
-    printf("%d %d\n", contIguales, limite);
     *result = contIguales == limite;
 }
