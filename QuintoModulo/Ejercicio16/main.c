@@ -19,7 +19,7 @@ int main(void)
     llenarMazo(&pila);
     printf("Ingrese la cantidad de jugadores\n");
     scanf("%d", &n);
-    pv = (Pila *)malloc(n * sizeof(Pila));
+    pv = (Pila *)malloc(n * sizeof(Pila)); // hacer en funcion
     for (int i = 0; i < n; i++)
         iniciaP((pv + i));
     repartirCartas(&pila, pv, n);
