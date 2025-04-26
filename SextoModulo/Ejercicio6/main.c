@@ -21,15 +21,107 @@ d) Eliminar los jugadores que se encuentren en estado inactivo en todos los equi
 void llenarLista(TLista *L);
 void mostrarLista(TLista L);
 void listarNombreK(TLista L, char K);
+void mostrarMinimoX(TLista L, unsigned int X);
+int verificarPunt(TLista L, char[50], unsigned int);
+void eliminarSuspendidos(TLista L);
 int main(void)
 {
     TLista lista = NULL;
     char K;
+    unsigned int X, punt;
+    char equipo[50];
     llenarLista(&lista);
-    // mostrarLista(lista);
-    printf("Ingrese una letra para buscar nombres en equipos\n");
-    scanf("%c", &K); // Ingresar mayuscula
+    /*printf("Ingrese una letra para buscar nombres en equipos\n");
+    scanf("%c", &K);
+    getchar();
     listarNombreK(lista, K);
+    printf("Ingrese una cantidad de puntos\n");
+    scanf("%d", &X);
+    mostrarMinimoX(lista, X);
+    printf("Ingrese un equipo para verificar su puntuacion\n");
+    scanf("%s", equipo);
+    printf("Ingrese la puntuacion\n");
+    scanf("%d", &punt);
+    printf(verificarPunt(lista, equipo, punt) ? "Si tiene esa puntuacion\n" : "No tiene esa puntuacion");
+    */
+    eliminarSuspendidos(lista);
+    mostrarLista(lista);
+}
+
+void eliminarSuspendidos(TLista L) // Preguntar
+{
+    TLista aux = L;
+    subLista act, ant, subaux;
+    while (aux != NULL)
+    {
+        subaux = aux->sub;
+        while (subaux != NULL)
+        {
+            act = subaux;
+            while (act != NULL && act->dato.estaActivo != 'S')
+            {
+                ant = act;
+                act = act->sig;
+            }
+            if (act != NULL)
+            {
+                if (act == aux->sub) // Si es el primero
+                {
+                    aux->sub = aux->sub->sig; // adelanto la sub lista una posicion e igualo sub aux a ese puntero
+                    subaux = aux->sub;
+                }
+                else
+                {
+                    ant->sig = act->sig; // uno el ant con el siguiente al actual
+                    subaux = act->sig;   // me paro en el siguiente al que voy a eliminar
+                }
+                free(act);
+            }
+            else
+                subaux = subaux->sig;
+        }
+        aux = aux->sig;
+    }
+}
+
+int verificarPunt(TLista L, char equipo[50], unsigned int punt)
+{
+
+    TLista aux = L;
+    subLista subAux;
+    while (aux != NULL && strcmp(aux->dato.nombre, equipo) != 0)
+        aux = aux->sig;
+
+    return aux != NULL && aux->dato.puntaje == punt;
+}
+
+void mostrarMinimoX(TLista L, unsigned int X)
+{
+    unsigned int cont, suma;
+    TLista aux = L;
+    subLista subAux;
+    while (aux != NULL)
+    {
+        if ((aux->dato.puntaje) >= X)
+        {
+            printf("Equipo:%s Puntaje:%d\n", aux->dato.nombre, aux->dato.puntaje);
+            cont = 0;
+            suma = 0;
+            subAux = aux->sub;
+            while (subAux != NULL)
+            {
+                printf("Nombre jugador:%s Edad%d Estado:%c\n", subAux->dato.nombre, subAux->dato.edad, subAux->dato.estaActivo);
+                cont++;
+                suma += subAux->dato.edad;
+                subAux = subAux->sig;
+            }
+            if (cont != 0)
+                printf("Promedio de edad del equipo:%.2f \n", (float)suma / cont);
+            else
+                printf("El equipo no tiene jugadores\n");
+        }
+        aux = aux->sig;
+    }
 }
 
 void listarNombreK(TLista L, char K)
