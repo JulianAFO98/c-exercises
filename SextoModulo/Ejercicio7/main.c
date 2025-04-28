@@ -163,7 +163,7 @@ void insertarEnSocios(TListaS socios, char nombreSocio[100], Libro lib) // Pregu
     }
 }
 
-Libro extraerLibro(TLista L, char nombreLibro[100], char nombreAutor[100]) // Preguntar
+Libro extraerLibro(TLista L, char nombreLibro[100], char nombreAutor[100]) // Preguntar por esto y por el caso de que quede vacia
 {
     Libro libroAux;
     TLista aux = L;
