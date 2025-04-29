@@ -27,6 +27,7 @@ int main(void)
     llenarListasRestantes(listaSimple, &listaCircular, &listaDoble);
     mostrarLCircular(listaCircular);
     mostrarLDoble(listaDoble);
+    return 0;
 }
 void llenarListaSimple(TListaS *L)
 {

@@ -60,6 +60,7 @@ int main(void)
     devolverLibro(vectorListas, socios);
     mostrarListaSocios(socios);
     mostrarVector(vectorListas);
+    return 0;
 }
 
 void devolverLibro(TLista vecListas[], TListaS socios)

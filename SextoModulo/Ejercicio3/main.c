@@ -19,6 +19,7 @@ int main(void)
     iniciaL(&lista);
     generarListaOrdenada(&lista);
     mostrarLista(lista);
+    return 0;
 }
 
 void iniciaL(TLista *L)
@@ -34,7 +35,7 @@ void insertaOrdenado(TLista *L, Palabra p)
     if (*L == NULL || strcmp(p.cadena, (*L)->pal.cadena) < 0)
     {
         aux->sig = *L;
-        aux->pal.apariciones=1;
+        aux->pal.apariciones = 1;
         *L = aux;
     }
     else
@@ -46,19 +47,20 @@ void insertaOrdenado(TLista *L, Palabra p)
             ant = act;
             act = act->sig;
         }
-        //si son iguales 
-        
-        if(act != NULL && strcmp(p.cadena, act->pal.cadena) == 0){
-            act->pal.apariciones+=1;
-        }else {
-            aux->pal.apariciones=1;
+        // si son iguales
+
+        if (act != NULL && strcmp(p.cadena, act->pal.cadena) == 0)
+        {
+            act->pal.apariciones += 1;
+        }
+        else
+        {
+            aux->pal.apariciones = 1;
             ant->sig = aux;
             aux->sig = act;
         }
     }
 }
-
-
 
 void generarListaOrdenada(TLista *L)
 {
@@ -70,7 +72,7 @@ void generarListaOrdenada(TLista *L)
     {
         while (fscanf(arch, "%s\n", pal.cadena) == 1)
         {
-             insertaOrdenado(L, pal);
+            insertaOrdenado(L, pal);
         }
     }
 }

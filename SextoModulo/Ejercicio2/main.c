@@ -36,6 +36,7 @@ int main(void)
     llenarOrdenado(vecEnteros, &lista);
     mostrarLista(lista);
     limpiarLista(&lista);
+    return 0;
 }
 
 void insertarOrdenado(TLista *L, int x)

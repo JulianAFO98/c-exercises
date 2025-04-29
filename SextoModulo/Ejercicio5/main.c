@@ -22,6 +22,7 @@ int main(void)
     crearLista(&lista);
     generarPila(lista, &pila);
     mostrarPila(&pila);
+    return 0;
 }
 
 void mostrarPila(TPila *P)

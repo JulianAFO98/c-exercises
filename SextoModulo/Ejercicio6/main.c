@@ -46,6 +46,7 @@ int main(void)
     */
     eliminarSuspendidos(lista);
     mostrarLista(lista);
+    return 0;
 }
 
 void eliminarSuspendidos(TLista L) // Preguntar
