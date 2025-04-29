@@ -12,16 +12,31 @@ pertenecen al rango [A,B].
 void llenarListaDoble(TListaD *L);
 void mostrarListaDoble(TListaD L);
 void generarListaSimple(TListaD L, TListaS *LS);
+void mostrarListaSimple(TListaS LS);
 
 int main(void)
 {
     TListaD lista;
     TListaS listaSimple;
     lista.pri = lista.ult = NULL;
+    listaSimple = NULL;
     llenarListaDoble(&lista);
     mostrarListaDoble(lista);
     generarListaSimple(lista, &listaSimple);
+    mostrarListaSimple(listaSimple);
     return 0;
+}
+
+void mostrarListaSimple(TListaS LS)
+{
+    TListaS aux = LS;
+    int i = 0;
+    while (aux != NULL)
+    {
+        printf("El promedio del nodo %d fue %.2f y los fuera de rango %d\n", i + 1, aux->prom, aux->cantFueraDeRango);
+        i++;
+        aux = aux->sig;
+    }
 }
 
 void mostrarListaDoble(TListaD L)
@@ -87,5 +102,53 @@ void llenarListaDoble(TListaD *L)
             (*L).ult = nuevo;
         }
         fclose(arch);
+    }
+}
+
+void generarListaSimple(TListaD L, TListaS *LS)
+{
+    nodoD *auxD = L.pri;
+    nodoSub *auxSub;
+    TListaS nuevo, ant, act;
+    int suma, cantNodos;
+    while (auxD != NULL)
+    {
+        nuevo = (TListaS)malloc(sizeof(nodoS));
+        nuevo->cantFueraDeRango = 0;
+        suma = 0;
+        cantNodos = 0;
+        auxSub = auxD->sub;
+        while (auxSub != NULL)
+        {
+            cantNodos++;
+            suma += auxSub->dato;
+            if (auxSub->dato < auxD->A || auxSub->dato > auxD->B)
+                nuevo->cantFueraDeRango += 1;
+            auxSub = auxSub->sig;
+        }
+        if (cantNodos != 0)
+            nuevo->prom = (float)suma / cantNodos;
+        else
+        {
+            printf("No se puede dividir por cero");
+            nuevo->prom = 0;
+        }
+        if (*LS == NULL)
+        {
+            nuevo->sig = *LS;
+            *LS = nuevo;
+        }
+        else
+        {
+            act = *LS;
+            while (act != NULL)
+            {
+                ant = act;
+                act = act->sig;
+            }
+            ant->sig = nuevo;
+            nuevo->sig = act;
+        }
+        auxD = auxD->sig;
     }
 }
