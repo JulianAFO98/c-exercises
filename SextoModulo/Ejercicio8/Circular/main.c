@@ -38,6 +38,7 @@ int main(void)
 
     printf("La cantidad de vocales en la lista es: %d\n", cantVocales(lista));
     printf(estaOrdenada(lista) ? "Esta ordenada\n" : "No esta ordenada\n");
+    return 0;
 }
 
 void eliminarEnP(TLista *lista, int p)
