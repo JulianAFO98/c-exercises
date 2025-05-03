@@ -1,0 +1,77 @@
+Emanuel 27 S
+David 26 S
+Julian 25 A
+Enzo 24 A
+Thiago 23 S
+Bruno 22 A
+Rodrigo 24 A
+Franco 25 S
+Diego 27 S
+Mateo 26 S
+Jorge 24 S
+#corte
+Ramiro 28 S
+Luciano 27 S
+Julio 26 S
+Ariel 25 A
+Bautista 24 A
+Nahuel 26 S
+Ulises 23 A
+Ivan 22 A
+Cristian 25 S
+Lucas 27 S
+Facundo 24 S
+#corte
+Diego 29 S
+Pablo 28 A
+Andres 27 A
+Lucas 25 S
+Tomas 26 A
+Mariano 24 A
+Gonzalo 23 S
+Alan 22 A
+Martin 25 A
+Ivan 27 A
+Sergio 24 S
+#corte
+Mauricio 26 A
+Esteban 27 S
+Federico 25 A
+Leonardo 23 A
+Sebastian 22 S
+Alvaro 24 A
+Ricardo 28 S
+Maxi 26 A
+Emilio 25 A
+Hernan 27 S
+Joaquin 22 A
+#corte
+Agustin 28 S
+Kevin 27 A
+Damian 26 A
+Facundo 24 A
+Rodrigo 23 S
+Jonathan 29 A
+Cristian 31 A
+Ezequiel 26 S
+Alejo 25 A
+Simon 27 A
+Nahuel 24 S
+#corte
+Pepe 33 A
+Juan 24 S
+Felipe 23 A
+Lucas 22 A
+Tomas 21 S
+Santiago 25 A
+Ramiro 26 A
+Ivan 24 A
+Manuel 23 S
+Lautaro 22 A
+Franco 25 S
+#corte
+Juan	20	S
+Maria	22	S
+Pedro	19	A
+Lucia	21	S
+Ana	23	A

@@ -30,8 +30,13 @@ int main(void)
     insertarEnMedio(&lista, 30);
     insertarEnMedio(&lista, 40);
     insertarEnMedio(&lista, 40);
+    insertarEnMedio(&lista, 20);
+    insertarEnMedio(&lista, 50);
+    insertarEnMedio(&lista, 25);
     mostrarLista(lista);
-    eliminarX(&lista, 40);
+
+    eliminarSabiendoAnterior(&lista, 1);
+    //  eliminarX(&lista, 40);
     mostrarLista(lista);
 
     return 0;
@@ -174,6 +179,45 @@ void eliminarX(TLista *L, TElementoL x)
     }
 }
 
-void eliminarSabiendoAnterior(TLista *L, int pos)
+void eliminarSabiendoAnterior(TLista *L, int pos) // Preguntar
 {
+    nodo *aux = (*L).pri;
+    int i = 0;
+    while (aux != NULL && i < pos)
+    {
+        aux = aux->sig;
+        i++;
+    }
+    if (aux != NULL)
+    {
+        if (aux == (*L).pri)
+        {
+            if ((*L).pri == (*L).ult)
+                (*L).pri = (*L).ult = NULL;
+            else
+            {
+                (*L).pri = (*L).pri->sig;
+                (*L).pri->ant = NULL;
+            }
+            free(aux);
+        }
+        else
+        {
+            if (aux->sig != NULL)
+            {
+
+                if (aux->sig == (*L).ult)
+                {
+                    (*L).ult = aux;
+                    (*L).ult->sig = NULL;
+                }
+                else
+                {
+                    aux->sig = aux->sig->sig;
+                    aux->sig->sig->ant = aux;
+                }
+                free(aux->sig);
+            }
+        }
+    }
 }
