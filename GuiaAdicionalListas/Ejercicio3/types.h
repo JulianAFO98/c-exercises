@@ -2,7 +2,7 @@
 
 typedef struct nodoArch
 {
-    FILE *arch;
+    char texto[255];
     struct nodoArch *sig;
 } nodoArch;
 

@@ -12,41 +12,124 @@ c) eliminar todas las ocurrencias del elemento X (recibido como parámetro)
 #include "types.h"
 void crearListaCircular(TLista *L);
 void mostrarListaCircular(TLista L);
-void insertarConociendoAnterior(TLista *L, TElementoL e, int pos);
+void insertarConociendoAnterior(TLista *L, nodo *anterior, TElementoL e);
+void insertarConociendoSiguiente(TLista *L, nodo *sig, TElementoL e);
+void eliminarOcurrenciasX(TLista *L, TElementoL e);
+
 int main(void)
 {
     TLista lista = NULL;
     TElementoL e = 999;
     crearListaCircular(&lista);
     mostrarListaCircular(lista);
-    insertarConociendoAnterior(&lista, e, 3);
+    insertarConociendoAnterior(&lista, lista->sig->sig, e);
+    mostrarListaCircular(lista);
+    insertarConociendoSiguiente(&lista, lista, 500);
+    eliminarOcurrenciasX(&lista, -22);
+    eliminarOcurrenciasX(&lista, 344);
+    eliminarOcurrenciasX(&lista, 999);
+    eliminarOcurrenciasX(&lista, -6);
+    eliminarOcurrenciasX(&lista, 4);
+    eliminarOcurrenciasX(&lista, 500);
+    eliminarOcurrenciasX(&lista, 222);
+
+    mostrarListaCircular(lista);
+
     return 0;
 }
 
-void insertarConociendoAnterior(TLista *L, TElementoL e, int pos)
+void eliminarOcurrenciasX(TLista *L, TElementoL e) // preguntar
 {
-    int i = 0;
-    nodo *nuevo = (TLista)malloc(sizeof(nodo)), *act, *ant;
+    TLista ant, act, elim;
+    if (*L != NULL)
+    {
+        ant = *L;
+        act = (*L)->sig;
+        do
+        {
+            elim = NULL;
+            if (act->dato == e)
+            {
+                elim = act;
+                if (*L == act) // Si estoy en el puntero
+                {
+                    if (act == act->sig) // si es el unico nodo
+                        *L = NULL;
+                    else
+                    {
+                        *L = ant;
+                        (*L)->sig = act->sig;
+                    }
+                }
+                else // estoy en cualquier otra posicion
+                    ant->sig = act->sig;
+            }
+            if (elim != NULL)
+            {
+                if (*L != NULL)
+                    act = act->sig;
+                free(elim);
+            }
+            else
+            {
+                ant = act;
+                act = act->sig;
+            }
+        } while (*L != NULL && act != (*L)->sig);
+    }
+}
+
+void insertarConociendoSiguiente(TLista *L, nodo *sig, TElementoL e)
+{
+    nodo *nuevo = (nodo *)malloc(sizeof(nodo)), *aux;
+
     nuevo->dato = e;
-    if (pos == 0 && *L == NULL)
+
+    if (sig == NULL)
+    {
+        if (*L == NULL)
+        {
+            nuevo->sig = nuevo;
+            *L = nuevo;
+        }
+    }
+    else
+    {
+        aux = *L;
+        while (aux->sig != sig && aux->sig != *L)
+            aux = aux->sig;
+        if (aux->sig != sig)
+            free(nuevo);
+        else
+        {
+            aux->sig = nuevo;
+            nuevo->sig = sig;
+            if (aux == *L)
+                *L = nuevo;
+        }
+    }
+}
+
+void insertarConociendoAnterior(TLista *L, nodo *anterior, TElementoL e)
+{
+    nodo *nuevo = (nodo *)malloc(sizeof(nodo));
+
+    nuevo->dato = e;
+
+    if (*L == NULL)
     {
         nuevo->sig = nuevo;
         *L = nuevo;
     }
     else
     {
-        if (*L != NULL)
-        {
-            i = 1;
-            ant = *L;
-            act = (*L)->sig;
-            while (i < pos && act != *L)
-            {
-                /* code */
-            }
-        }
-        else
-            free(nuevo);
+        // Lista no vacía
+        nuevo->sig = anterior->sig;
+        anterior->sig = nuevo;
+
+        // Si se insertó después del último nodo, actualizamos el puntero a último
+        if (anterior == *L)
+            *L = nuevo;
     }
 }
 
