@@ -38,7 +38,7 @@ int main(void)
     return 0;
 }
 
-void eliminarOcurrenciasX(TLista *L, TElementoL e) // preguntar
+void eliminarOcurrenciasX(TLista *L, TElementoL e)
 {
     TLista ant, act, elim;
     if (*L != NULL)
