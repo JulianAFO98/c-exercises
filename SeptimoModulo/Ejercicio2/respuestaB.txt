@@ -1,0 +1,6 @@
+POSTORDEN
+
+ARBOL 1
+5 8 3 * 6 3 * - + 
+ARBOL 2
+6 5 2 + * 6 2 - /

@@ -1,0 +1,49 @@
+a)
+PREORDEN (R I D)
+5 8 3 6 4 1 2
+POSTORDEN (I D R)
+3 6 8 2 1 4 5
+INORDEN (I R D)
+3 8 6 5 1 2 4
+
+Contenido raiz => 5
+
+Nodo que contiene el valor 5:
+--Grado:2
+--Nivel:1
+--Valor Padre:No tiene
+--Valor Hermano:No tiene
+Nodo que contiene el valor 8:
+--Grado:2
+--Nivel:2
+--Valor Padre:5
+--Valor Hermano:4
+Nodo que contiene el valor 3:
+--Grado:0
+--Nivel:3
+--Valor Padre:8
+--Valor Hermano:6
+Nodo que contiene el valor 6:
+--Grado:0
+--Nivel:3
+--Valor Padre:8
+--Valor Hermano:3
+Nodo que contiene el valor 4:
+--Grado:1
+--Nivel:2
+--Valor Padre:5
+--Valor Hermano:8
+Nodo que contiene el valor 1:
+--Grado:1
+--Nivel:3
+--Valor Padre:4
+--Valor Hermano:No tiene
+Nodo que contiene el valor 2:
+--Grado:0
+--Nivel:4
+--Valor Padre:1
+--Valor Hermano:No tiene
+
+b)
+Profundidad del arbol:4
+
