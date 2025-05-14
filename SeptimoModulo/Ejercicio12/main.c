@@ -1,5 +1,6 @@
 /*
-Retornar el valor mínimo de un ABB
+ Determinar  cuántos  elementos  de  un  ABB  son mayores  que A  y  menores  que  B.  A  y  B  son
+parámetros de entrada.
 
 */
 
@@ -15,8 +16,7 @@ typedef struct nodo
 typedef NODO *arbol;
 
 void addnodo(arbol *a, TElememtoA e);
-int buscarMinimoABB(arbol a);
-
+int entreAyB(arbol a, int x, int k);
 int main()
 {
     arbol a;
@@ -28,21 +28,23 @@ int main()
     addnodo(&a->der, 20);
     addnodo(&a->der->izq, 18);
     addnodo(&a->der->izq->der, 19);
-    printf("El minimo del arbol binario de busqueda es:%d\n", buscarMinimoABB(a));
+    printf("La cantidad de elementos entre los elementos x y k es:%d\n", entreAyB(a, 5, 10));
     return 0;
 }
 
-int buscarMinimoABB(arbol a)
+int entreAyB(arbol a, int x, int k)
 {
-    arbol aux;
     if (a != NULL)
     {
-        aux = a;
-        while (aux->izq != NULL)
-            aux = aux->izq;
-        return aux->dato;
+        if (a->dato <= x)
+            return entreAyB(a->der, x, k);
+        else if (a->dato >= k)
+            return entreAyB(a->izq, x, k);
+        else
+            return 1 + entreAyB(a->izq, x, k) + entreAyB(a->der, x, k);
     }
-    return -1;
+    else
+        return 0;
 }
 
 void addnodo(arbol *a, TElememtoA e)
