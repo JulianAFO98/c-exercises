@@ -33,7 +33,7 @@ int main()
     return 0;
 }
 
-int sumaX(arbol a, int nivAct, int nivel)
+int sumaX(arbol a, int nivAct, int nivel)//este
 {
     int suma = 0;
     if (a != NULL)

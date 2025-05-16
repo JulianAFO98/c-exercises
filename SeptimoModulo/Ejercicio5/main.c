@@ -20,7 +20,7 @@ typedef struct nodo
 typedef NODO *arbol;
 
 void addnodo(arbol *a, TElememtoA e);
-void calcularProf(arbol a, int niv, int *prof);
+int calcularProf(arbol a);
 int maxLong(arbol a);
 int contarDerechos(arbol a);
 int main()
@@ -42,14 +42,14 @@ int main()
     addnodo(&a->der->izq, elem);
     strcpy(elem.cad, "C");
     addnodo(&a->der->izq->der, elem);
-    calcularProf(a, 1, &prof);
-    printf("Profundidad:%d\n", prof);
+    printf("Profundidad:%d\n",calcularProf(a));
     printf("Longitud de la cadena mas larga del arbol:%d\n", maxLong(a));
     printf("Cantidad de hijos derechos:%d\n", contarDerechos(a));
     return 0;
 }
 // Version 1
-/*int contarDerechos(arbol a)
+/*
+int contarDerechos(arbol a)
 {
     if (a != NULL)
         if (a->der != NULL)
@@ -58,7 +58,8 @@ int main()
             return contarDerechos(a->der) + contarDerechos(a->izq);
     else
         return 0;
-}*/
+}
+*/
 // Version 2
 int contarDerechos(arbol a)
 {
@@ -91,7 +92,7 @@ int maxLong(arbol a)
     else
         return 0;
 }
-
+/*
 void calcularProf(arbol a, int niv, int *prof)
 {
     if (a != NULL)
@@ -102,6 +103,21 @@ void calcularProf(arbol a, int niv, int *prof)
         calcularProf(a->der, niv + 1, prof);
     }
 }
+*/
+
+int calcularProf(arbol a){
+    int izq,der;
+    if(a!=NULL){
+      izq=calcularProf(a->izq);
+      der=calcularProf(a->der);
+      if(izq>der) {
+        return 1+izq;
+      }else 
+        return 1+der;
+    }else 
+      return 0;
+}
+
 
 void addnodo(arbol *a, TElememtoA e)
 {

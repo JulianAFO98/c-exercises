@@ -32,15 +32,15 @@ int main()
 int esABB(arbol a)
 {
     if ((a->izq != NULL && a->der != NULL) && (a->izq->dato < a->dato && a->der->dato > a->dato))
-        return 1 && esABB(a->izq) && esABB(a->der);
+        return  esABB(a->izq) && esABB(a->der);
     else
     {
         if ((a->izq == NULL && a->der != NULL) && a->der->dato > a->dato)
-            return 1 && esABB(a->der);
+            return esABB(a->der);
         else
         {
             if ((a->izq != NULL && a->der == NULL) && a->izq->dato < a->dato)
-                return 1 && esABB(a->izq);
+                return  esABB(a->izq);
             else
             {
                 if (a->izq == NULL && a->der == NULL)

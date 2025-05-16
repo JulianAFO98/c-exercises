@@ -42,7 +42,7 @@ int buscarMinimoABB(arbol a)
             aux = aux->izq;
         return aux->dato;
     }
-    return -1;
+    return -30000;
 }
 
 void addnodo(arbol *a, TElememtoA e)

@@ -46,7 +46,7 @@ int main()
     return 0;
 }
 
-void calcularProfA(arbol a, int niv, int *prof, int *maxLen)
+void calcularProfA(arbol a, int niv, int *prof, int *maxLen)//modificar
 {
     int lenCad;
     if (a != NULL)
