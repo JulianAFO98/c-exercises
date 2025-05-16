@@ -14,7 +14,7 @@ typedef struct nodo
 typedef NODO *arbol;
 
 void addnodo(arbol *a, TElememtoA e);
-int esABB(arbol a);
+int esABB(arbol a,int min,int max);
 int main()
 {
     arbol a;
@@ -26,30 +26,18 @@ int main()
     addnodo(&a->der, 20);
     addnodo(&a->der->izq, 18);
     addnodo(&a->der->izq->der, 19);
-    printf(esABB(a) ? "Es ABB\n" : "No es ABB\n");
+    printf(esABB(a,-9999,9999) ? "Es ABB\n" : "No es ABB\n");
     return 0;
 }
-int esABB(arbol a)
+int esABB(arbol a,int min,int max)
 {
-    if ((a->izq != NULL && a->der != NULL) && (a->izq->dato < a->dato && a->der->dato > a->dato))
-        return  esABB(a->izq) && esABB(a->der);
-    else
-    {
-        if ((a->izq == NULL && a->der != NULL) && a->der->dato > a->dato)
-            return esABB(a->der);
-        else
-        {
-            if ((a->izq != NULL && a->der == NULL) && a->izq->dato < a->dato)
-                return  esABB(a->izq);
-            else
-            {
-                if (a->izq == NULL && a->der == NULL)
-                    return 1;
-                else
-                    return 0;
-            }
-        }
-    }
+    if(a != NULL) {
+        if(a->dato<max && a->dato>min) {
+            return esABB(a->izq,min,a->dato) && esABB(a->der,a->dato,max);
+        }else 
+           return 0;
+    }else
+     return 1;
 }
 
 void addnodo(arbol *a, TElememtoA e)
