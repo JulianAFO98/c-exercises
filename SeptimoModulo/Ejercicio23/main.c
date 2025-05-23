@@ -70,3 +70,17 @@ int hallarGradoImparEnNivelImpar(arbol a, pos p ,int nivel){
     return 0;
 }
 
+void promedioNivelK(arbol a,pos p ,int nivelAct,int k,int * suma,int * n){
+    pos c;
+    if(!nulo(p)) {
+      c=hijoMasIzq(p,a);  
+      while(!nulo(c)){
+        promedioNivelK(a,c,nivelAct+1,k,suma,n);
+        c=hermanoDer(c,a);
+      }
+      if(nivelAct == k){
+        (*n)++;
+        (*suma)+=info(p);
+      }
+    }
+}
