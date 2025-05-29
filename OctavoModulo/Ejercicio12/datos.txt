@@ -1,0 +1,7 @@
+A 2 B C
+B 3 A C D
+C 4 A B D E
+D 3 B C E
+E 4 C D F G
+F 1 E
+G 1 E
