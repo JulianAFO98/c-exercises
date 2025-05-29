@@ -6,7 +6,7 @@ int vaciaC(TCola C){
     return C.pri == NULL;
 }
 void iniciaC(TCola * C){
-    (*C).pri = (*C).ult == NULL;
+    (*C).pri = (*C).ult = NULL;
 }
 void sacaC(TCola * C, TElementoC * e){
     nodo * aux;
