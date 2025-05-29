@@ -15,7 +15,6 @@ c) devolver la cantidad de componentes conexas
 void llenarMatriz(int mat[MAX][MAX], int *n);
 void mostrarMatriz(int mat[MAX][MAX], int n);
 void mostrarEnAmplitud(int mat[MAX][MAX], int n);
-void inicializarVector(int vec[], int n);
 int hayaCeros(int vec[], int n);
 void agregarAdyacentes(TCola *C, int mat[MAX][MAX], int n, int fila, int vecVisitados[]);
 void mostrarEnProfundidad(int mat[MAX][MAX], int n);
@@ -40,14 +39,14 @@ int main()
 void mostrarEnProfundidad(int mat[MAX][MAX], int n)
 {
     TPila P;
-    int vecVisitados[MAX] = {0}, nodoActual, indice, cant = 0;
+    int vecVisitados[MAX] = {0}, nodoActual, indice,k=1;
     iniciaP(&P);
     poneP(&P, 4); // Mi primer nodo es E(4)
     while (hayaCeros(vecVisitados, n))
     {
         if (vaciaP(P))
-        {
-            cant++;
+        {   
+            k++;
             poneP(&P, buscarNodoDisp(vecVisitados, n));
         }
 
@@ -57,7 +56,7 @@ void mostrarEnProfundidad(int mat[MAX][MAX], int n)
             if (!vecVisitados[nodoActual])
             {
                 printf("%c ", nodoActual + 65);
-                vecVisitados[nodoActual] = 1;
+                vecVisitados[nodoActual] = k;
             }
             indice = caminoDisponible(mat, n, nodoActual, vecVisitados);
             if (indice == -1)
@@ -79,9 +78,8 @@ int buscarNodoDisp(int vec[MAX], int n)
 int cantConexas(int mat[MAX][MAX], int n)
 {
     TCola C;
-    int vecVisitados[n], nodoActual, cant = 1;
+    int vecVisitados[MAX]={0}, nodoActual, cant = 1;
     iniciaC(&C);
-    inicializarVector(vecVisitados, n);
     poneC(&C, 4); // Mi primer nodo es E(4)
     while (hayaCeros(vecVisitados, n))
     {
@@ -110,7 +108,7 @@ int caminoDisponible(int mat[MAX][MAX], int n, int fila, int vecVisitados[])
     int camino = -1, i = 0;
     while (i < n && camino == -1)
     {
-        if (mat[fila][i] == 1 && vecVisitados[i] != 1)
+        if (mat[fila][i] == 1 && vecVisitados[i] == 0)
             camino = i;
         i++;
     }
@@ -125,25 +123,18 @@ int hayaCeros(int vec[], int n)
     return i < n;
 }
 
-void inicializarVector(int vec[], int n)
-{
-    for (int i = 0; i < n; i++)
-    {
-        vec[i] = 0;
-    }
-}
 
 void mostrarEnAmplitud(int mat[MAX][MAX], int n)
 {
     TCola C;
-    int vecVisitados[n], nodoActual, cant = 0;
+    int vecVisitados[MAX]={0}, nodoActual,k=1;
     iniciaC(&C);
-    inicializarVector(vecVisitados, n);
     poneC(&C, 4); // Mi primer nodo es E(4)
     while (hayaCeros(vecVisitados, n))
     {
         if (vaciaC(C))
         {
+            k++;
             poneC(&C, buscarNodoDisp(vecVisitados, n));
         }
         while (!vaciaC(C))
@@ -152,7 +143,7 @@ void mostrarEnAmplitud(int mat[MAX][MAX], int n)
             if (!vecVisitados[nodoActual])
             {
                 printf("%c ", nodoActual + 65);
-                vecVisitados[nodoActual] = 1;
+                vecVisitados[nodoActual] = k;
                 agregarAdyacentes(&C, mat, n, nodoActual, vecVisitados);
             }
         }
