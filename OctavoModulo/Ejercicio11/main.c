@@ -20,17 +20,20 @@ int hayaCeros(int vec[], int n);
 void agregarAdyacentes(TCola *C, int mat[MAX][MAX], int n, int fila, int vecVisitados[]);
 void mostrarEnProfundidad(int mat[MAX][MAX], int n);
 int caminoDisponible(int mat[MAX][MAX], int n, int fila, int vecVisitados[]);
+int cantConexas(int mat[MAX][MAX], int n);
+int buscarNodoDisp(int vec[MAX],int n);
 
 int main()
 {
     int mat[MAX][MAX], n = 0;
     llenarMatriz(mat, &n);
     mostrarMatriz(mat, n);
-    printf("Recorrido en Amplitud\n");
-    mostrarEnAmplitud(mat, n);
-    printf("\nRecorrido en Profundidad\n");
-    mostrarEnProfundidad(mat,n);
-
+    //printf("Recorrido en Amplitud\n");
+    //mostrarEnAmplitud(mat, n);
+    //printf("\nRecorrido en Profundidad\n");
+    //mostrarEnProfundidad(mat,n);
+    printf("\n");
+    printf("Cantidad de componentes:%d\n",cantConexas(mat,n));
     return 0;
 }
 
@@ -47,7 +50,6 @@ void mostrarEnProfundidad(int mat[MAX][MAX], int n){
         if (!vecVisitados[nodoActual]){
             printf("%c ", nodoActual + 65);
             vecVisitados[nodoActual] = 1;
-            poneP(&P,nodoActual);
         }
         indice = caminoDisponible(mat,n,nodoActual,vecVisitados);
         if(indice==-1)
@@ -58,6 +60,40 @@ void mostrarEnProfundidad(int mat[MAX][MAX], int n){
     }
 
 }
+
+int buscarNodoDisp(int vec[MAX], int n){
+   int i=0;
+   while(i<n && vec[i]!=0)
+    i++;
+   return i; 
+}
+
+int cantConexas(int mat[MAX][MAX], int n){
+    TCola C;
+    int vecVisitados[n], nodoActual,cant=1;
+    iniciaC(&C);
+    inicializarVector(vecVisitados, n);
+    poneC(&C, 4); // Mi primer nodo es E(4)
+    while(hayaCeros(vecVisitados, n)){
+        if(vaciaC(C)){
+            cant++;
+            poneC(&C,buscarNodoDisp(vecVisitados, n));
+        }
+          
+        while (hayaCeros(vecVisitados, n) && !vaciaC(C))
+        {
+            sacaC(&C, &nodoActual);
+            if (!vecVisitados[nodoActual])
+            {
+                vecVisitados[nodoActual] = 1;
+                agregarAdyacentes(&C, mat, n, nodoActual, vecVisitados);
+            }
+        }
+    }
+
+    return cant;
+}
+
 
 int caminoDisponible(int mat[MAX][MAX], int n, int fila, int vecVisitados[]){
     int camino=-1,i=0;
