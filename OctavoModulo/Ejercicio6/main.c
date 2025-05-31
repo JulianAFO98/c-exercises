@@ -51,7 +51,7 @@ int gradoVer(nodoGrafo v[],int n,char vertice){
        while(aux!=NULL){
           if(v[i].letraPrincipal==vertice) {
             if(aux->letra==v[i].letraPrincipal)
-                bucles++;
+                bucles=1;
             gradoSal++;
           }
           if(aux->letra==vertice)

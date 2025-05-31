@@ -29,7 +29,7 @@ int main(){
 }
 
 int gradoVer(int mat[MAX][MAX],int n,int  vertice){ // preguntar
-    return gradoEntrada(mat,n,vertice)+gradoSalida(mat,n,vertice) - ((mat[vertice][vertice]!=0) ? mat[vertice][vertice] : 0);
+    return gradoEntrada(mat,n,vertice)+gradoSalida(mat,n,vertice) - 1;
 }
 
 
